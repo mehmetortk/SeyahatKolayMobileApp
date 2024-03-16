@@ -1,5 +1,6 @@
 package com.example.firebasemobileapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Login extends AppCompatActivity {
     FirebaseFirestore firestore;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,12 +25,20 @@ public class Login extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
-        EditText txtUsername, txtPassword;
-        Button btnLogin;
+        EditText txtUsername, txtPassword ;
+        Button btnLogin,btnRegister;
 
         txtUsername = findViewById(R.id.txtUsername);
-        txtPassword = findViewById(R.id.txtPassword);
+        txtPassword = findViewById(R.id.txtRegPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnRegister=findViewById(R.id.btnReg);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Login.this,Register.class);
+                startActivity(intent);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
