@@ -48,6 +48,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-analytics-ktx:20.0.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0 ")
 
 
 }

@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class Login extends AppCompatActivity {
     FirebaseFirestore firestore;
@@ -25,17 +29,17 @@ public class Login extends AppCompatActivity {
 
         firestore = FirebaseFirestore.getInstance();
 
-        EditText txtUsername, txtPassword ;
-        Button btnLogin,btnRegister;
+        EditText txtUsername, txtPassword;
+        Button btnLogin, btnRegister;
 
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtRegPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnRegister=findViewById(R.id.btnReg);
+        btnRegister = findViewById(R.id.btnReg);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Login.this,Register.class);
+                Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
             }
         });
@@ -47,25 +51,29 @@ public class Login extends AppCompatActivity {
                 String username = txtUsername.getText().toString();
                 String password = txtPassword.getText().toString();
 
-                firestore.collection("users").document("user1")
+                firestore.collection("users")
                         .get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onComplete(Task<DocumentSnapshot> task) {
+                            public void onComplete(Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
+
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        String actualUsername = document.getString("username");
                                         String actualPassword = document.getString("password");
-                                        if (actualPassword != null && actualPassword.equals(password)) {
-                                            Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(Login.this, MainPage.class);
-                                            startActivity(intent);
+                                        if (document.exists()) {
+                                            if (actualPassword != null && actualPassword.equals(password) && actualUsername != null && actualUsername.equals(username)) {
+                                                Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(Login.this, MainPage.class);
+                                                startActivity(intent);
+                                            } else {
+                                                Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                                            }
                                         } else {
-                                            Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Login.this, "User not found!!", Toast.LENGTH_SHORT).show();
                                         }
-                                    } else {
-                                        Toast.makeText(Login.this, "User not found!!", Toast.LENGTH_SHORT).show();
                                     }
+
                                 } else {
                                     Exception exception = task.getException();
                                     if (exception != null) {

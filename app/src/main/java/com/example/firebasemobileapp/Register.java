@@ -28,11 +28,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
-public class Register extends AppCompatActivity {
-EditText txtUserName,txtPassword;
-Button btnRegister;
-FirebaseAuth mAuth;
+import java.util.HashMap;
+import java.util.Map;
 
+public class Register extends AppCompatActivity {
+    EditText txtUserName, txtPassword;
+    Button btnRegister;
+    FirebaseAuth mAuth;
+    FirebaseFirestore firestore;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,31 +49,44 @@ FirebaseAuth mAuth;
             return insets;
         });
 
-        txtUserName=findViewById(R.id.txtRegUsername);
-        txtPassword=findViewById(R.id.txtRegPassword);
-        btnRegister=findViewById(R.id.btnRegister);
-        mAuth=FirebaseAuth.getInstance();
+        txtUserName = findViewById(R.id.txtRegUsername);
+        txtPassword = findViewById(R.id.txtRegPassword);
+        btnRegister = findViewById(R.id.btnRegister);
+        mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String UserName=txtUserName.getText().toString();
-                String Password=txtPassword.getText().toString();
+                String UserName = txtUserName.getText().toString();
+                String Password = txtPassword.getText().toString();
 
-                if (!UserName.isEmpty()&&!Password.isEmpty()){
-                    mAuth.createUserWithEmailAndPassword(UserName,Password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+                if (!UserName.isEmpty() && !Password.isEmpty()) {
+                    mAuth.createUserWithEmailAndPassword(UserName, Password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful())
-                                Toast.makeText(Register.this,"Registration Successful",Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(Register.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                saveUserDataToFirestore(user.getUid(), UserName, Password);
+                                Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                            } else
+                                Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                }
-                else
-                    Toast.makeText(Register.this,"Username and Password cannot be left blank",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(Register.this, "Username and Password cannot be left blank", Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    private void saveUserDataToFirestore(String userId, String username,String password) {
+        // Create a new user object with username and any other necessary data
+        Map<String, Object> user = new HashMap<>();
+        user.put("username", username);
+        user.put("password",password);
+        // Add a new document with a generated ID
+        firestore.collection("users")
+                .document(userId)
+                .set(user);
     }
 }
