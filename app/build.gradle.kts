@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     id("com.google.gms.google-services")
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
 
 }
 
@@ -32,6 +33,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     buildToolsVersion = "34.0.0"
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -48,7 +52,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-analytics-ktx:20.0.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.0")
-    implementation("com.google.android.gms:play-services-maps:18.2.0 ")
-
+    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    implementation ("com.google.android.gms:play-services-location:18.0.0")
 
 }
