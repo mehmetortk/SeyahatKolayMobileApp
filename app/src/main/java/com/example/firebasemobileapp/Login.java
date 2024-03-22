@@ -57,23 +57,21 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void onComplete(Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
-
+                                    boolean userFound = false;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         String actualUsername = document.getString("username");
                                         String actualPassword = document.getString("password");
-                                        if (document.exists()) {
-                                            if (actualPassword != null && actualPassword.equals(password) && actualUsername != null && actualUsername.equals(username)) {
-                                                Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(Login.this, MainPage.class);
-                                                startActivity(intent);
-                                            } else {
-                                                Toast.makeText(Login.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
-                                            }
-                                        } else {
-                                            Toast.makeText(Login.this, "User not found!!", Toast.LENGTH_SHORT).show();
+                                        if (document.exists() && actualPassword != null && actualPassword.equals(password) && actualUsername != null && actualUsername.equals(username)) {
+                                            Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(Login.this, MainPage.class);
+                                            startActivity(intent);
+                                            userFound = true;
+                                            break; // Kullanıcı bulunduğunda döngüyü sonlandır
                                         }
                                     }
-
+                                    if (!userFound) {
+                                        Toast.makeText(Login.this, "User not found or incorrect password", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     Exception exception = task.getException();
                                     if (exception != null) {

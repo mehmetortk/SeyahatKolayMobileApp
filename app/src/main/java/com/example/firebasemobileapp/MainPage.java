@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
+
 import android.Manifest;
 
 import androidx.activity.EdgeToEdge;
@@ -85,10 +89,14 @@ public class MainPage extends AppCompatActivity implements OnMapReadyCallback, G
         }).setNegativeButton("Reddet", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Kullanıcı reddederse, varsayılan bir konum kullan
-                turkey = new LatLng(39.925533, 32.866287); // Örnek bir konum (Ankara)
-                map.addMarker(new MarkerOptions().position(turkey).title("Türkiye"));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(turkey, 10)); // 10x yakınlaştırma
+                LatLng ipLocation = getIpBasedLocation();
+                if (ipLocation != null) {
+                    map.addMarker(new MarkerOptions().position(ipLocation).title("IP Bazlı Konum"));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(ipLocation, 10)); // 10x yakınlaştırma
+                    Toast.makeText(MainPage.this, "IP bazlı konum kullanılıyor.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainPage.this, "Konum bilgisi alınamadı.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         AlertDialog alertDialog = builder.create();
@@ -117,7 +125,36 @@ public class MainPage extends AppCompatActivity implements OnMapReadyCallback, G
                     });
         }
     }
-
+    private LatLng getIpBasedLocation() {
+        // Wi-Fi bağlantısı üzerinden IP bazlı konum almak için
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // Android 6.0 ve üzeri sürümler için gereken izin kontrolü
+            if (checkSelfPermission(Manifest.permission.ACCESS_WIFI_STATE) == PackageManager.PERMISSION_GRANTED) {
+                WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                int ipAddress = wifiInfo.getIpAddress();
+                // IP adresinden konum tahmini yapılabilir
+                double latitude = ((ipAddress >> 24) & 0xFF);
+                double longitude = ((ipAddress >> 16) & 0xFF);
+                return new LatLng(latitude, longitude);
+            } else {
+                // İzin verilmemişse null döndür
+                return null;
+            }
+        } else {
+            // Android 6.0'dan önceki sürümlerde izin gerekmez, ancak bu yaklaşımın doğruluğu daha düşüktür
+            // Dikkat: Bu yöntem, cihazın gerçek konumunu sağlamaz, yalnızca bir tahmin sunar
+            // Bu nedenle, bu bilgiye tamamen güvenmemelisiniz
+            // Daha iyi bir doğruluk için, Android 6.0 ve üstü sürümler için ACCESS_WIFI_STATE izni gereklidir
+            WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int ipAddress = wifiInfo.getIpAddress();
+            // IP adresinden konum tahmini yapılabilir
+            double latitude = ((ipAddress >> 24) & 0xFF);
+            double longitude = ((ipAddress >> 16) & 0xFF);
+            return new LatLng(latitude, longitude);
+        }
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
