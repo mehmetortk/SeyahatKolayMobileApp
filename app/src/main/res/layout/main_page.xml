@@ -21,19 +21,43 @@
         android:id="@+id/txtCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="165dp"
-        android:layout_marginBottom="180dp"
-        android:text="TextView" />
+        android:layout_marginEnd="125dp"
+        android:layout_marginBottom="106dp"
+        android:text="Not Choosen" />
 
     <TextView
         android:id="@+id/txtCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="125dp"
+        android:layout_marginBottom="63dp"
+        android:text="Not Choosen" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="166dp"
-        android:layout_marginBottom="120dp"
-        android:text="TextView" />
+        android:layout_marginStart="97dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="105dp"
+        android:layout_toStartOf="@+id/txtCountry"
+        android:text="Country:" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="103dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="64dp"
+        android:layout_toStartOf="@+id/txtCity"
+        android:text="City:" />
 </RelativeLayout>

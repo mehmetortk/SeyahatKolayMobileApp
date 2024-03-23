@@ -2,6 +2,8 @@ package com.example.firebasemobileapp;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -34,6 +36,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 public class MainPage extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
     GoogleMap map;
     LatLng turkey;
@@ -52,12 +58,7 @@ public class MainPage extends AppCompatActivity implements OnMapReadyCallback, G
             return insets;
         });
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        TextView txtCountry,txtCity;
 
-        txtCountry=(TextView) findViewById(R.id.txtCountry);
-        txtCity=(TextView)findViewById(R.id.txtCity);
-        String country =txtCountry.getText().toString();
-        String city=txtCity.getText().toString();
 
         SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         fragment.getMapAsync(this);
@@ -104,10 +105,31 @@ public class MainPage extends AppCompatActivity implements OnMapReadyCallback, G
     }
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
-        // Harita üzerinde bir konum seçildiğinde burası çalışacak
-        map.clear(); // Önceki marker'ları temizle
-        map.addMarker(new MarkerOptions().position(latLng)); // Yeni marker ekle
-        // Diğer işlemleri buraya ekleyebilirsiniz
+        TextView txtCountry,txtCity;
+
+        txtCountry=(TextView) findViewById(R.id.txtCountry);
+        txtCity=(TextView)findViewById(R.id.txtCity);
+        map.clear(); // Önceki imleci temizle
+        map.addMarker(new MarkerOptions().position(latLng)); // Yeni imleç ekle
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+            if (addresses != null && addresses.size() > 0) {
+                Address address = addresses.get(0);
+                String country = address.getCountryName();
+                String city = address.getAdminArea(); // Şehir bilgisini alabilirsiniz, ancak bazı durumlarda null dönebilir
+                // Ülke ve şehir bilgilerini TextView'lere atayabilirsiniz
+                txtCountry.setText(country);
+                if (city != null) {
+                    txtCity.setText(city);
+                } else {
+                    txtCity.setText("Belirtilmemiş"); // Şehir bilgisi null ise bir mesaj gösterebilirsiniz
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Adres alınamadı.", Toast.LENGTH_SHORT).show();
+        }
     }
     private void getLastKnownLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
