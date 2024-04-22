@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.firebasemobileapp"
+    namespace = "com.example.seyahatkolaymobileapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.firebasemobileapp"
+        applicationId = "com.example.seyahatkolaymobileapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -48,11 +48,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-analytics-ktx:20.0.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.0.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:21.6.2")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
-    implementation ("com.google.android.gms:play-services-location:18.0.0")
+    implementation ("com.google.android.gms:play-services-location:21.2.0")
 
 }

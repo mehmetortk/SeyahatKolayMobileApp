@@ -1,4 +1,4 @@
-package com.example.firebasemobileapp;
+package com.example.seyahatkolaymobileapp;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;

@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FireBaseMobileApp"
+rootProject.name = "SeyahatKolayMobileApp"
 include(":app")
  
