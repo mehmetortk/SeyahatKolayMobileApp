@@ -1,0 +1,9 @@
+<!-- res/drawable/splash_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Arka plan rengi -->
+    <item android:drawable="@android:color/white" />
+
+    <!-- Logo -->
+    <item android:drawable="@drawable/seyahat_kolay"
+         />
+</layer-list>
