@@ -1,7 +1,9 @@
 package com.example.seyahatkolaymobileapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,6 +63,7 @@ public class Register extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 saveUserDataToFirestore(user.getUid(), UserName, Password);
                                 Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                startCountdownTimer();
                             } else
                                 Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -81,6 +84,21 @@ public class Register extends AppCompatActivity {
         firestore.collection("users")
                 .document(userId)
                 .set(user);
+    }
+    private void startCountdownTimer() {
+        // 5 saniyelik geri sayım zamanlayıcısı başlat
+        new CountDownTimer(5000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // Geri sayım sürerken gerekirse burada işlemler yapılabilir
+            }
+
+            public void onFinish() {
+                // Geri sayım tamamlandığında Login aktivitesine yönlendir
+                Intent intent = new Intent(Register.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        }.start();
     }
 
 
