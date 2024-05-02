@@ -3,6 +3,7 @@ package com.example.seyahatkolaymobileapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,11 +31,13 @@ public class Login extends AppCompatActivity {
 
         EditText txtUsername, txtPassword;
         Button btnLogin, btnRegister;
+        Vibrator vibrator;
 
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtRegPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnReg);
+        vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,11 +73,13 @@ public class Login extends AppCompatActivity {
                                     }
                                     if (!userFound) {
                                         Toast.makeText(Login.this, "User not found or incorrect password", Toast.LENGTH_SHORT).show();
+
                                     }
                                 } else {
                                     Exception exception = task.getException();
                                     if (exception != null) {
                                         Log.e("FirestoreError", "Error retrieving user data: " + exception.getMessage());
+                                        vibrator.vibrate(500);
                                     }
                                     Toast.makeText(Login.this, "Error retrieving data. Please try again later", Toast.LENGTH_SHORT).show();
                                 }
