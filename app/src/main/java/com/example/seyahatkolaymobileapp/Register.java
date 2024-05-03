@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,10 +28,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
-    EditText txtUserName, txtPassword;
+
+    TextView textView9, txtCountDown;
+    EditText txtUserName, txtPassword, txtRegRetypePass;
     Button btnRegister;
     FirebaseAuth mAuth;
     FirebaseFirestore firestore;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -47,53 +51,74 @@ public class Register extends AppCompatActivity {
         txtUserName = findViewById(R.id.txtRegUsername);
         txtPassword = findViewById(R.id.txtRegPassword);
         btnRegister = findViewById(R.id.btnRegister);
+        txtCountDown = findViewById(R.id.txtCountDown);
+        txtRegRetypePass = findViewById(R.id.txtRegRetypePass);
+        textView9 = findViewById(R.id.textView9);
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+
+        txtCountDown.setVisibility(View.INVISIBLE);
+        textView9.setVisibility(View.INVISIBLE);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String UserName = txtUserName.getText().toString();
-                String Password = txtPassword.getText().toString();
+                String userName = txtUserName.getText().toString();
+                String password = txtPassword.getText().toString();
+                String retypePassword = txtRegRetypePass.getText().toString();
 
-                if (!UserName.isEmpty() && !Password.isEmpty()) {
-                    mAuth.createUserWithEmailAndPassword(UserName, Password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                saveUserDataToFirestore(user.getUid(), UserName, Password);
-                                Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                startCountdownTimer();
-                            } else
-                                Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else
-                    Toast.makeText(Register.this, "Username and Password cannot be left blank", Toast.LENGTH_SHORT).show();
+                // Şifre ve şifre tekrarını kontrol et
+                if (!userName.isEmpty() && !password.isEmpty() && !retypePassword.isEmpty()) {
+                    if (password.equals(retypePassword)) {
+                        // Şifreler eşleşirse kayıt işlemine devam et
+                        txtCountDown.setVisibility(View.VISIBLE);
+                        textView9.setVisibility(View.VISIBLE);
+                        mAuth.createUserWithEmailAndPassword(userName, password).addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    saveUserDataToFirestore(user.getUid(), userName, password);
+                                    Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                    startCountdownTimer();
+                                } else {
+                                    Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    } else {
+                        // Şifreler eşleşmezse hata mesajı göster
+                        Toast.makeText(Register.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(Register.this, "Username, Password, and Retyped Password cannot be left blank", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
     }
 
-    private void saveUserDataToFirestore(String userId, String username,String password) {
+    private void saveUserDataToFirestore(String userId, String username, String password) {
         // Create a new user object with username and any other necessary data
         Map<String, Object> user = new HashMap<>();
         user.put("username", username);
-        user.put("password",password);
+        user.put("password", password);
         // Add a new document with a generated ID
         firestore.collection("users")
                 .document(userId)
                 .set(user);
     }
+
     private void startCountdownTimer() {
-        // 5 saniyelik geri sayım zamanlayıcısı başlat
-        new CountDownTimer(5000, 1000) {
+        // 3 saniyelik geri sayım zamanlayıcısı başlat
+        new CountDownTimer(3000, 1000) {
             public void onTick(long millisUntilFinished) {
-                // Geri sayım sürerken gerekirse burada işlemler yapılabilir
+                long seconds = millisUntilFinished / 1000;
+                txtCountDown.setText(String.valueOf(seconds)); // Kalan süreyi textView9'a yaz
             }
 
             public void onFinish() {
-                // Geri sayım tamamlandığında Login aktivitesine yönlendir
+                txtCountDown.setVisibility(View.INVISIBLE);
+                textView9.setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
                 finish();
