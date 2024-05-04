@@ -36,6 +36,7 @@ public class TicketFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ticket, container, false);
 
         btnDateTimePicker = view.findViewById(R.id.btnDateTimePicker);
+        
         spinner1 = view.findViewById(R.id.spinner1);
         spinner2 = view.findViewById(R.id.spinner2);
 
