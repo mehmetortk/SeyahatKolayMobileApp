@@ -25,7 +25,11 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(menuItem -> {
             if (menuItem.getItemId() == R.id.fragment_ticket) {
                 replaceFragment(new TicketFragment());
-            } else if (menuItem.getItemId() == R.id.fragment_aboutus) {
+            }
+            else if (menuItem.getItemId() == R.id.fragment_user_profile) {
+                replaceFragment(new UserProfileFragment());
+            }
+            else if (menuItem.getItemId() == R.id.fragment_aboutus) {
                 replaceFragment(new AboutusFragment());
             }
             return true;

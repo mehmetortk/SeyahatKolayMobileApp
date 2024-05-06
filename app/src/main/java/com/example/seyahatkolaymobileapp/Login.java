@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     boolean userFound = false;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String actualUsername = document.getString("email");
+                                        String actualUsername = document.getString("username");
                                         String actualPassword = document.getString("password");
                                         if (document.exists() && actualPassword != null && actualPassword.equals(password) && actualUsername != null && actualUsername.equals(username)) {
                                             Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
                                     Exception exception = task.getException();
                                     if (exception != null) {
                                         Log.e("FirestoreError", "Error retrieving user data: " + exception.getMessage());
-                                        vibrator.vibrate(500);
+                                        vibrator.vibrate(450);
                                     }
                                     Toast.makeText(Login.this, "Error retrieving data. Please try again later", Toast.LENGTH_SHORT).show();
                                 }

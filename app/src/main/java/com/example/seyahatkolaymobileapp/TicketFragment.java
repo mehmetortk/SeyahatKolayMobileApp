@@ -1,7 +1,9 @@
 package com.example.seyahatkolaymobileapp;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
@@ -18,8 +21,9 @@ import java.util.Calendar;
 public class TicketFragment extends Fragment {
 
     Spinner spinner1, spinner2;
-    Button btnDateTimePicker;
-    String[] sehirler = {"Adana", "Adıyaman", "Afyon", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin",
+    Button btnDateTimePicker,btnChangeDirection,searchButton;
+    ProgressBar progressBar;
+    String[] sehirler = {"Şehir Seçiniz", "Adana", "Adıyaman", "Afyon", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin",
             "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale",
             "Çankırı", "Çorum", "Denizli", "Diyarbakır", "Edirne", "Elazığ", "Erzincan", "Erzurum ", "Eskişehir",
             "Gaziantep", "Giresun", "Gümüşhane", "Hakkari", "Hatay", "Isparta", "Mersin", "İstanbul", "İzmir",
@@ -34,22 +38,59 @@ public class TicketFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ticket, container, false);
-
+        progressBar=view.findViewById(R.id.progressBar);
         btnDateTimePicker = view.findViewById(R.id.btnDateTimePicker);
-        
+        btnChangeDirection= view.findViewById(R.id.btnChangeDirection);
         spinner1 = view.findViewById(R.id.spinner1);
         spinner2 = view.findViewById(R.id.spinner2);
-
+        searchButton= view.findViewById(R.id.searchButton);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, sehirler);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter);
         spinner2.setAdapter(adapter);
+        btnChangeDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int spinner1Position = spinner1.getSelectedItemPosition();
+                int spinner2Position = spinner2.getSelectedItemPosition();
+
+                spinner1.setSelection(spinner2Position);
+                spinner2.setSelection(spinner1Position);
+            }
+        });
+
+        btnDateTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimePicker(v);
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Progress bar'ı görünür yap
+                progressBar.setVisibility(View.VISIBLE);
+
+                // 5 saniye sonra işlemi gerçekleştir
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Progress bar'ı gizle
+                        progressBar.setVisibility(View.GONE);
+
+                        // Results activity'sini başlat
+                        Intent intent = new Intent(requireContext(), ResultsActivity.class);
+                        startActivity(intent);
+                    }
+                }, 5000); // 5000 milisaniye (5 saniye) beklet
+            }
+        });
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String value = parent.getItemAtPosition(position).toString();
-                //Buraya otobüs arama yapıldığında seçilen şehirleri otobüs sefer kısmına yazdıran kod olacak.
             }
 
             @Override
@@ -62,7 +103,6 @@ public class TicketFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String value = parent.getItemAtPosition(position).toString();
-                //Buraya otobüs arama yapıldığında seçilen şehirleri otobüs sefer kısmına yazdıran kod olacak.
             }
 
             @Override
@@ -70,6 +110,7 @@ public class TicketFragment extends Fragment {
 
             }
         });
+
 
         return view;
     }
