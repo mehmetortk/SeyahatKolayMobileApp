@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
                                         String actualPassword = document.getString("password");
                                         if (document.exists() && actualPassword != null && actualPassword.equals(password) && actualUsername != null && actualUsername.equals(username)) {
                                             Toast.makeText(Login.this, "Success", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(Login.this, AboutUs.class);
+                                            Intent intent = new Intent(Login.this, MainActivity.class);
                                             startActivity(intent);
                                             userFound = true;
                                             break; // Kullanıcı bulunduğunda döngüyü sonlandır

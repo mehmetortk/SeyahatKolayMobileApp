@@ -10,12 +10,15 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/app_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/app_icon_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FireBaseMobileApp"
         tools:targetApi="31">
+        <activity
+            android:name=".BusActivity"
+            android:exported="false" />
         <activity
             android:name=".User_Information"
             android:exported="false" />
@@ -37,11 +40,11 @@
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".AboutUs"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
