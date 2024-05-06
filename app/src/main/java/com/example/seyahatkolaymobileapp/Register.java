@@ -2,6 +2,7 @@ package com.example.seyahatkolaymobileapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Register extends AppCompatActivity {
+    private MediaPlayer mediaPlayer;
 
     TextView textView9, txtCountDown;
     EditText txtUserName, txtPassword, txtRegRetypePass;
@@ -39,6 +41,8 @@ public class Register extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mediaPlayer = MediaPlayer.create(this, R.raw.engine);
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.register);
@@ -65,8 +69,8 @@ public class Register extends AppCompatActivity {
                 String userName = txtUserName.getText().toString();
                 String password = txtPassword.getText().toString();
                 String retypePassword = txtRegRetypePass.getText().toString();
+                mediaPlayer.start();
 
-                // Şifre ve şifre tekrarını kontrol et
                 if (!userName.isEmpty() && !password.isEmpty() && !retypePassword.isEmpty()) {
                     if (password.equals(retypePassword)) {
                         // Şifreler eşleşirse kayıt işlemine devam et
@@ -86,7 +90,6 @@ public class Register extends AppCompatActivity {
                             }
                         });
                     } else {
-                        // Şifreler eşleşmezse hata mesajı göster
                         Toast.makeText(Register.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -98,7 +101,6 @@ public class Register extends AppCompatActivity {
     }
 
     private void saveUserDataToFirestore(String userId, String username, String password) {
-        // Create a new user object with username and any other necessary data
         Map<String, Object> user = new HashMap<>();
         user.put("username", username);
         user.put("password", password);
@@ -109,11 +111,10 @@ public class Register extends AppCompatActivity {
     }
 
     private void startCountdownTimer() {
-        // 3 saniyelik geri sayım zamanlayıcısı başlat
         new CountDownTimer(3000, 1000) {
             public void onTick(long millisUntilFinished) {
                 long seconds = millisUntilFinished / 1000;
-                txtCountDown.setText(String.valueOf(seconds)); // Kalan süreyi textView9'a yaz
+                txtCountDown.setText(String.valueOf(seconds));
             }
 
             public void onFinish() {

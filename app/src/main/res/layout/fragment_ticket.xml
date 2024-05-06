@@ -8,8 +8,6 @@
     tools:context=".TicketFragment">
 
 
-
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
@@ -19,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="56dp"
         android:layout_marginTop="55dp"
-        android:text="Gidiş"
+        android:text="Nereden"
         android:textSize="20dp" />
 
     <TextView
@@ -30,7 +28,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="57dp"
         android:layout_marginTop="158dp"
-        android:text="Dönüş"
+        android:text="Nereye"
         android:textSize="20dp" />
 
     <Spinner
@@ -70,16 +68,16 @@
         android:layout_height="39dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="266dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="274dp"
         android:backgroundTint="@color/white"
         android:drawableLeft="@drawable/date_icon"
         android:drawablePadding="8dp"
         android:onClick="showDateTimePicker"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:textColor="@color/black"
-        android:text="Tarih Seçiniz..." />
+        android:text="Tarih Seçiniz..."
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/searchButton"
@@ -87,8 +85,8 @@
         android:layout_height="41dp"
         android:layout_below="@+id/btnDateTimePicker"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="131dp"
         android:backgroundTint="@color/white"
         android:drawableLeft="@drawable/search"
         android:drawablePadding="8dp"
@@ -97,6 +95,16 @@
         android:text="Sefer Ara"
         android:textColor="@color/black"
         android:textSize="16sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="21dp" />
 
 
 </RelativeLayout>

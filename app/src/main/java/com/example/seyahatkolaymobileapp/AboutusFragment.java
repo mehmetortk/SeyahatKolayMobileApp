@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,24 +42,24 @@ public class AboutusFragment extends Fragment implements OnMapReadyCallback, Goo
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng ankaraAnitkabir = new LatLng(39.925533, 32.836944); // Ankara Anıtkabir koordinatları
-        googleMap.addMarker(new MarkerOptions().position(ankaraAnitkabir).title("Ankara Anıtkabir"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ankaraAnitkabir, 15)); // Zoom seviyesi: 15 (Genişletilmiş görüntü)
-        googleMap.setOnMapClickListener(this); // Haritaya tıklama olayını dinle
+        LatLng kastamonu = new LatLng(41.3887, 33.7825);
+        googleMap.addMarker(new MarkerOptions().position(kastamonu).title("Kastamonu"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(kastamonu, 15));
+        googleMap.setOnMapClickListener(this);
     }
+
 
     @Override
     public void onMapClick(LatLng latLng) {
-        // Tıklanan konumu al
         double latitude = latLng.latitude;
         double longitude = latLng.longitude;
 
-        // Google Haritalar uygulamasını açmak için adres bilgisini oluştur
-        Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?q=Ankara Anıtkabir");
+
+        Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?q=Kastamonu");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps"); // Google Haritalar uygulamasını zorunlu kıl
+        mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(mapIntent); // Google Haritalar uygulamasını aç
+            startActivity(mapIntent);
         }
     }
 }

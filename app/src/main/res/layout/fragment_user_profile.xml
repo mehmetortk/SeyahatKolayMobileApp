@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".User_Information">
+    tools:context=".UserProfileFragment">
 
     <TextView
         android:id="@+id/selected_date_text"
@@ -23,34 +23,34 @@
         android:id="@+id/birthDatePickerbtn"
         android:layout_width="157dp"
         android:layout_height="65dp"
+        android:layout_below="@+id/phonetxt"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="34dp"
-        android:layout_marginTop="259dp"
-        android:text="Doğum Tarihi:" />
+        android:layout_marginTop="26dp"
+        android:text="Doğum Tarihi" />
 
     <EditText
         android:id="@+id/nameSurnametxt"
         android:layout_width="344dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView11"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="69dp"
         android:ems="10"
-        android:hint="Ad Soyad:"
+        android:hint="Ad Soyad"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/tcKimliktxt"
         android:layout_width="343dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/nameSurnametxt"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="22dp"
         android:ems="10"
-        android:hint="T.C. Kimlik No:"
+        android:hint="T.C. Kimlik No"
         android:inputType="number"
         android:maxLength="11" />
 
@@ -58,12 +58,12 @@
         android:id="@+id/phonetxt"
         android:layout_width="344dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tcKimliktxt"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="21dp"
         android:ems="10"
-        android:hint="Cep Telefonu:"
+        android:hint="Cep Telefonu"
         android:inputType="phone" />
     <RadioGroup
         android:id="@+id/radio_group_gender"
@@ -77,21 +77,43 @@
         android:id="@+id/radio_button_male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/phonetxt"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="33dp"
         android:layout_marginEnd="39dp"
-        android:layout_marginBottom="417dp"
         android:text="Erkek" />
 
     <RadioButton
         android:id="@+id/radio_button_female"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/phonetxt"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="417dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="133dp"
         android:text="Kadın" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/selected_date_text"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="27dp"
+        android:text="Kaydet" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="138dp"
+        android:layout_marginTop="48dp"
+        android:text="Profilim"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

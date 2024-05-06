@@ -6,11 +6,11 @@
         android:icon="@drawable/baseline_search_24"
         android:title="Ara" />
     <item
-        android:id="@+id/fragment_my_trips"
-        android:icon="@drawable/baseline_backpack_24"
-        android:title="Seyahatlerim" />
+        android:id="@+id/fragment_user_profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="Profilim" />
     <item
         android:id="@+id/fragment_aboutus"
-        android:icon="@drawable/baseline_account_circle_24"
-        android:title="Kullanıcı İşlemleri" />
+        android:icon="@drawable/baseline_contact_support_24"
+        android:title="Hakkımızda" />
 </menu>
