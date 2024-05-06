@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TicketFragment">
+
+
+
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="55dp"
+        android:text="Gidiş"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="158dp"
+        android:text="Dönüş"
+        android:textSize="20dp" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="91dp"
+        android:background="@android:drawable/btn_dropdown" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="193dp"
+        android:background="@android:drawable/btn_dropdown" />
+
+    <Button
+        android:id="@+id/btnChangeDirection"
+        android:layout_width="34dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="147dp"
+        android:layout_marginEnd="158dp"
+        android:background="@drawable/pngwing_com"
+        android:rotation="90" />
+
+    <Button
+        android:id="@+id/btnDateTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="266dp"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/date_icon"
+        android:drawablePadding="8dp"
+        android:onClick="showDateTimePicker"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="@color/black"
+        android:text="Tarih Seçiniz..." />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_below="@+id/btnDateTimePicker"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="19dp"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/search"
+        android:drawablePadding="8dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="Sefer Ara"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>
