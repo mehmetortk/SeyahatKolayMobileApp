@@ -3,6 +3,7 @@ package com.example.seyahatkolaymobileapp;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,10 @@ import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 
 public class TicketFragment extends Fragment {
+    Handler handler;
 
     Spinner spinner1, spinner2;
-    Button btnDateTimePicker,btnChangeDirection,searchButton;
+    Button btnDateTimePicker, btnChangeDirection, searchButton;
     ProgressBar progressBar;
     String[] sehirler = {"Şehir Seçiniz", "Adana", "Adıyaman", "Afyon", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin",
             "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale",
@@ -38,12 +40,13 @@ public class TicketFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ticket, container, false);
-        progressBar=view.findViewById(R.id.progressBar);
+        progressBar = view.findViewById(R.id.progressBar);
         btnDateTimePicker = view.findViewById(R.id.btnDateTimePicker);
-        btnChangeDirection= view.findViewById(R.id.btnChangeDirection);
+        btnChangeDirection = view.findViewById(R.id.btnChangeDirection);
         spinner1 = view.findViewById(R.id.spinner1);
+        handler = new Handler();
         spinner2 = view.findViewById(R.id.spinner2);
-        searchButton= view.findViewById(R.id.searchButton);
+        searchButton = view.findViewById(R.id.searchButton);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), android.R.layout.simple_spinner_item, sehirler);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter);
@@ -69,21 +72,8 @@ public class TicketFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Progress bar'ı görünür yap
                 progressBar.setVisibility(View.VISIBLE);
-
-                // 5 saniye sonra işlemi gerçekleştir
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Progress bar'ı gizle
-                        progressBar.setVisibility(View.GONE);
-
-                        // Results activity'sini başlat
-                        Intent intent = new Intent(requireContext(), ResultsActivity.class);
-                        startActivity(intent);
-                    }
-                }, 5000); // 5000 milisaniye (5 saniye) beklet
+                startProgressBar();
             }
         });
 
@@ -111,7 +101,6 @@ public class TicketFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -126,4 +115,33 @@ public class TicketFragment extends Fragment {
 
         datePickerDialog.show();
     }
+
+    private void startProgressBar() {
+        final int duration = 3000;
+
+        final int interval = 100;
+
+        final int steps = duration / interval;
+
+        final float increment = 100.0f / steps;
+
+        handler.postDelayed(new Runnable() {
+            float progress = 0;
+
+            @Override
+            public void run() {
+                progress += increment;
+                progressBar.setProgress((int) progress);
+
+                if (progress >= 100) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Intent intent = new Intent(requireContext(), BusActivity.class);
+                    startActivity(intent);
+                } else {
+                    handler.postDelayed(this, interval);
+                }
+            }
+        }, interval);
+    }
+
 }

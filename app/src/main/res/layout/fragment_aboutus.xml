@@ -36,7 +36,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="21dp"
         android:layout_marginTop="166dp"
-        android:text="Seyahat Kolay" />
+        android:text="Seyahat Kolay"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView4"
@@ -46,7 +48,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="22dp"
         android:layout_marginTop="215dp"
-        android:text="Adres:" />
+        android:text="Adres: Kastamonu Otogar" />
 
     <TextView
         android:id="@+id/textView5"
@@ -56,7 +58,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="19dp"
         android:layout_marginTop="492dp"
-        android:text="Tel No:" />
+        android:text="Tel No: 111333444" />
 
     <TextView
         android:id="@+id/textView6"
@@ -76,6 +78,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="19dp"
         android:layout_marginTop="254dp"
-        android:text="Email Adres:" />
+        android:text="Email Adres: seyahatkolay@gmail.com" />
 
 </RelativeLayout>
