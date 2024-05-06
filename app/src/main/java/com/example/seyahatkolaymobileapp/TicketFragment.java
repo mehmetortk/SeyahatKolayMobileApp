@@ -18,6 +18,7 @@ import java.util.Calendar;
 public class TicketFragment extends Fragment {
 
     Spinner spinner1, spinner2;
+    public Bus bus1= new Bus();
     Button btnDateTimePicker;
     String[] sehirler = {"Adana", "Adıyaman", "Afyon", "Ağrı", "Amasya", "Ankara", "Antalya", "Artvin",
             "Aydın", "Balıkesir", "Bilecik", "Bingöl", "Bitlis", "Bolu", "Burdur", "Bursa", "Çanakkale",
@@ -49,6 +50,8 @@ public class TicketFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String value = parent.getItemAtPosition(position).toString();
+                String selectedOption = (String) spinner1.getSelectedItem();
+                bus1.nereden(selectedOption.toString());
                 //Buraya otobüs arama yapıldığında seçilen şehirleri otobüs sefer kısmına yazdıran kod olacak.
             }
 
@@ -62,6 +65,8 @@ public class TicketFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String value = parent.getItemAtPosition(position).toString();
+                String selectedOption = (String) spinner2.getSelectedItem();
+                bus1.nereye(selectedOption);
                 //Buraya otobüs arama yapıldığında seçilen şehirleri otobüs sefer kısmına yazdıran kod olacak.
             }
 
