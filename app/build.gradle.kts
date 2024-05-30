@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     id("com.google.gms.google-services")
     alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
 
 }
 
@@ -29,13 +30,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildToolsVersion = "34.0.0"
     buildFeatures {
         dataBinding = true
         viewBinding = true
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
@@ -46,6 +50,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
+    implementation(libs.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -53,9 +58,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-analytics-ktx:22.0.0")
     implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
-    implementation ("com.google.android.gms:play-services-maps:18.2.0")
-    implementation ("com.google.android.gms:play-services-location:21.2.0")
-    implementation ("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
 
 
 }

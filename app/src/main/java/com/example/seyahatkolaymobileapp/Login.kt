@@ -1,91 +1,80 @@
-package com.example.seyahatkolaymobileapp;
+package com.example.seyahatkolaymobileapp
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Vibrator;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
+import android.os.Vibrator
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-public class Login extends AppCompatActivity {
-    FirebaseFirestore firestore;
+class Login : AppCompatActivity() {
+    var firestore: FirebaseFirestore? = null
 
     @SuppressLint("MissingInflatedId")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.login)
 
-        firestore = FirebaseFirestore.getInstance();
+        firestore = FirebaseFirestore.getInstance()
 
-        EditText txtUsername, txtPassword;
-        Button btnLogin, btnRegister;
-        Vibrator vibrator;
+        val txtUsername = findViewById<EditText>(R.id.txtUsername)
+        val txtPassword = findViewById<EditText>(R.id.txtRegPassword)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
+        val btnRegister = findViewById<Button>(R.id.btnReg)
+        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+        btnRegister.setOnClickListener {
+            val intent = Intent(this@Login, Register::class.java)
+            startActivity(intent)
+        }
 
-        txtUsername = findViewById(R.id.txtUsername);
-        txtPassword = findViewById(R.id.txtRegPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnReg);
-        vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this, Register.class);
-                startActivity(intent);
-            }
-        });
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String username = txtUsername.getText().toString();
-                String password = txtPassword.getText().toString();
-
-                firestore.collection("users")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    boolean userFound = false;
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String actualUsername = document.getString("username");
-                                        String actualPassword = document.getString("password");
-                                        if (document.exists() && actualPassword != null && actualPassword.equals(password) && actualUsername != null && actualUsername.equals(username)) {
-                                            Toast.makeText(Login.this, "Giriş Başarılı", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(Login.this, MainActivity.class);
-                                            startActivity(intent);
-                                            userFound = true;
-                                            break; // Kullanıcı bulunduğunda döngüyü sonlandır
-                                        }
-                                    }
-                                    if (!userFound) {
-                                        Toast.makeText(Login.this, "Kullanıcı adı veya parola yanlış", Toast.LENGTH_SHORT).show();
-
-                                    }
-                                } else {
-                                    Exception exception = task.getException();
-                                    if (exception != null) {
-                                        Log.e("FirestoreError", "Error retrieving user data: " + exception.getMessage());
-                                        vibrator.vibrate(450);
-                                    }
-                                    Toast.makeText(Login.this, "Veri çekilemiyor. Lütfen tekrar deneyiniz.", Toast.LENGTH_SHORT).show();
-                                }
+        btnLogin.setOnClickListener {
+            val username = txtUsername.text.toString()
+            val password = txtPassword.text.toString()
+            firestore!!.collection("users")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        var userFound = false
+                        for (document in task.result) {
+                            val actualUsername = document.getString("username")
+                            val actualPassword = document.getString("password")
+                            if (document.exists() && actualPassword != null && actualPassword == password && actualUsername != null && actualUsername == username) {
+                                Toast.makeText(this@Login, "Giriş Başarılı", Toast.LENGTH_SHORT)
+                                    .show()
+                                val intent = Intent(this@Login, MainActivity::class.java)
+                                startActivity(intent)
+                                userFound = true
+                                break // Kullanıcı bulunduğunda döngüyü sonlandır
                             }
-                        });
-            }
-        });
+                        }
+                        if (!userFound) {
+                            Toast.makeText(
+                                this@Login,
+                                "Kullanıcı adı veya parola yanlış",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            vibrator.vibrate(450)
+                        }
+                    } else {
+                        val exception = task.exception
+                        if (exception != null) {
+                            Log.e(
+                                "FirestoreError",
+                                "Error retrieving user data: " + exception.message
+                            )
+                            vibrator.vibrate(450)
+                        }
+                        Toast.makeText(
+                            this@Login,
+                            "Veri çekilemiyor. Lütfen tekrar deneyiniz.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+        }
     }
 }
