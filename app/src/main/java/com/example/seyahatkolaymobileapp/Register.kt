@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -51,7 +52,14 @@ class Register : AppCompatActivity() {
 
         txtCountDown.visibility = View.INVISIBLE
         textView9.visibility = View.INVISIBLE
+        val shrinkAnim = AnimationUtils.loadAnimation(this, R.anim.button_shrink)
+        val expandAnim = AnimationUtils.loadAnimation(this, R.anim.button_expand)
 
+        btnRegister.setOnTouchListener { v, event ->
+            v.startAnimation(shrinkAnim)
+            v.postDelayed({ v.startAnimation(expandAnim) }, 50)
+            false
+        }
         btnRegister.setOnClickListener {
             val userName = txtUserName.text.toString()
             val password = txtPassword.text.toString()

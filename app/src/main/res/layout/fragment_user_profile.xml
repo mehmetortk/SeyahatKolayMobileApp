@@ -5,115 +5,128 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".UserProfileFragment">
 
+    <!-- Profil başlığı -->
     <TextView
         android:id="@+id/selected_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="Profilim"
+        android:textSize="36sp"
+        android:textColor="@color/dark_blue"
+        android:textStyle="bold" />
+
+    <!-- Ad Soyad alanı -->
+    <EditText
+        android:id="@+id/nameSurnametxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selected_date_text"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Ad Soyad"
+        android:textColorHint="@color/dark_gray"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/light_blue"
+        android:inputType="text" />
+
+    <!-- T.C. Kimlik No alanı -->
+    <EditText
+        android:id="@+id/tcKimliktxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameSurnametxt"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:hint="T.C. Kimlik No"
+        android:textColorHint="@color/dark_gray"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/light_blue"
+        android:inputType="number"
+        android:maxLength="11" />
+
+    <!-- Cep Telefonu alanı -->
+    <EditText
+        android:id="@+id/phonetxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tcKimliktxt"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Cep Telefonu"
+        android:textColorHint="@color/dark_gray"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/light_blue"
+        android:inputType="phone" />
+
+    <!-- Doğum Tarihi seçme butonu -->
+    <Button
+        android:id="@+id/birthDatePickerbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phonetxt"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Doğum Tarihi"
+        android:textColor="@android:color/black"
+        android:background="@drawable/rounded_button_blue" />
+
+    <!-- Seçilen tarih metni -->
+    <TextView
+        android:id="@+id/selectedDateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/birthDatePickerbtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textSize="18sp"
+        android:textColor="@color/dark_gray"
+        android:visibility="invisible"
+        tools:visibility="invisible" />
+
+    <!-- Cinsiyet seçimi -->
+    <RadioGroup
+        android:id="@+id/radio_group_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/birthDatePickerbtn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text=""
-        android:textSize="18sp"
-        android:visibility="invisible"
-        tools:visibility="invisible" />
-
-    <Button
-        android:id="@+id/birthDatePickerbtn"
-        android:layout_width="157dp"
-        android:layout_height="65dp"
-        android:layout_below="@+id/phonetxt"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="26dp"
-        android:text="Doğum Tarihi" />
-
-    <EditText
-        android:id="@+id/nameSurnametxt"
-        android:layout_width="344dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView11"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="69dp"
-        android:ems="10"
-        android:hint="Ad Soyad"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/tcKimliktxt"
-        android:layout_width="343dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/nameSurnametxt"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="22dp"
-        android:ems="10"
-        android:hint="T.C. Kimlik No"
-        android:inputType="number"
-        android:maxLength="11" />
-
-    <EditText
-        android:id="@+id/phonetxt"
-        android:layout_width="344dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tcKimliktxt"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="21dp"
-        android:ems="10"
-        android:hint="Cep Telefonu"
-        android:inputType="phone" />
-    <RadioGroup
-        android:id="@+id/radio_group_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <RadioButton
+            android:id="@+id/radio_button_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Erkek"
+            android:textColor="@color/dark_gray" />
+
+        <RadioButton
+            android:id="@+id/radio_button_female"
+            android:layout_width="95dp"
+            android:layout_height="wrap_content"
+            android:text="Kadın"
+            android:textColor="@color/dark_gray" />
     </RadioGroup>
 
-    <RadioButton
-        android:id="@+id/radio_button_male"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/phonetxt"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="39dp"
-        android:text="Erkek" />
-
-    <RadioButton
-        android:id="@+id/radio_button_female"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/phonetxt"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="133dp"
-        android:text="Kadın" />
-
+    <!-- Kaydet butonu -->
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_below="@+id/selected_date_text"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="157dp"
-        android:layout_marginTop="27dp"
-        android:text="Kaydet" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="138dp"
-        android:layout_marginTop="48dp"
-        android:text="Profilim"
-        android:textSize="28sp"
-        android:textStyle="bold" />
-
+        android:layout_below="@id/radio_group_gender"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="Kaydet"
+        android:textColor="@android:color/black"
+        android:background="@drawable/rounded_button_blue" />
 
 </RelativeLayout>

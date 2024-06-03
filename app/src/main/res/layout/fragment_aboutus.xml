@@ -5,79 +5,90 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".AboutusFragment">
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="209dp"
-        android:layout_height="174dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="293dp" />
-
+    <!-- Başlık -->
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="94dp"
-        android:layout_marginTop="43dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
         android:text="Bize Ulaşın"
-        android:textSize="48sp" />
+        android:textSize="28sp"
+        android:textColor="@color/dark_blue"
+        android:textStyle="bold" />
 
+    <!-- Alt başlık -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="166dp"
+        android:layout_below="@id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
         android:text="Seyahat Kolay"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textSize="18sp"
+        android:textColor="@color/dark_gray"
+        android:textStyle="italic" />
 
+    <!-- Adres -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="215dp"
-        android:text="Adres: Kastamonu Otogar" />
+        android:layout_below="@id/textView3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Adres: Kastamonu Otogar"
+        android:textSize="16sp"
+        android:textColor="@color/black" />
 
+    <!-- Telefon numarası -->
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="492dp"
-        android:text="Tel No: 111333444" />
+        android:layout_below="@id/textView4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Tel No: 111333444"
+        android:textSize="16sp"
+        android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="295dp"
-        android:text="Konum:" />
-
+    <!-- E-posta -->
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="254dp"
-        android:text="Email Adres: seyahatkolay@gmail.com" />
+        android:layout_below="@id/textView5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="Email: seyahatkolay@gmail.com"
+        android:textSize="16sp"
+        android:textColor="@color/black" />
 
+    <!-- Konum başlığı -->
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Konum:"
+        android:textSize="18sp"
+        android:textColor="@color/dark_gray"
+        android:textStyle="bold" />
+
+    <!-- Harita -->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/textView6"
+        android:layout_margin="16dp"
+        android:background="@drawable/map_background" />
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Vibrator
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -20,12 +21,26 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.login)
 
         firestore = FirebaseFirestore.getInstance()
+        val shrinkAnim = AnimationUtils.loadAnimation(this, R.anim.button_shrink)
+        val expandAnim = AnimationUtils.loadAnimation(this, R.anim.button_expand)
+
 
         val txtUsername = findViewById<EditText>(R.id.txtUsername)
         val txtPassword = findViewById<EditText>(R.id.txtRegPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val btnRegister = findViewById<Button>(R.id.btnReg)
         val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+        btnLogin.setOnTouchListener { v, event ->
+            v.startAnimation(shrinkAnim)
+            v.postDelayed({ v.startAnimation(expandAnim) }, 50)
+            false
+        }
+
+        btnRegister.setOnTouchListener { v, event ->
+            v.startAnimation(shrinkAnim)
+            v.postDelayed({ v.startAnimation(expandAnim) }, 50)
+            false
+        }
         btnRegister.setOnClickListener {
             val intent = Intent(this@Login, Register::class.java)
             startActivity(intent)
