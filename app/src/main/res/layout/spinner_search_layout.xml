@@ -14,7 +14,9 @@
             android:iconifiedByDefault="false"
             android:background="?attr/selectableItemBackground"
             android:layout_gravity="center"
-            android:layout_margin="5dp" />
+            android:layout_margin="5dp"
+
+            />
 
 
 </LinearLayout>

@@ -48,11 +48,9 @@ class TicketFragment : Fragment() {
         btnDateTimePicker = view.findViewById(R.id.btnDateTimePicker)
         btnChangeDirection = view.findViewById(R.id.btnChangeDirection)
         spinner1 = view.findViewById(R.id.spinner1)
-        handler = Handler()
         spinner2 = view.findViewById(R.id.spinner2)
-
         searchButton = view.findViewById(R.id.searchButton)
-
+        handler = Handler()
 
         filteredSehirler = ArrayList(sehirler.asList())
 
@@ -95,6 +93,8 @@ class TicketFragment : Fragment() {
         searchButton.setOnClickListener {
             progressBar.visibility = View.VISIBLE
             startProgressBar()
+            val intent = Intent(context, BusActivity::class.java)
+            startActivity(intent)
         }
 
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -148,8 +148,9 @@ class TicketFragment : Fragment() {
         private val filteredList = ArrayList(objects)
 
         override fun getCount(): Int {
-            return filteredList.size
+            return if (filteredList.size > 7) 7 else filteredList.size
         }
+
 
         override fun getItem(position: Int): String? {
             return filteredList[position]
