@@ -93,7 +93,7 @@ class TicketFragment : Fragment() {
         searchButton.setOnClickListener {
             progressBar.visibility = View.VISIBLE
             startProgressBar()
-            val intent = Intent(context, BusActivity::class.java)
+            val intent = Intent(context, MyTripsFragment::class.java)
             startActivity(intent)
         }
 

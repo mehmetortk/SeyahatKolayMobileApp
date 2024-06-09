@@ -5,10 +5,12 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
 
 }
-
 android {
     namespace = "com.example.seyahatkolaymobileapp"
     compileSdk = 34
+    viewBinding {
+        var enabled = true
+    }
 
     defaultConfig {
         applicationId = "com.example.seyahatkolaymobileapp"
@@ -33,6 +35,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     buildToolsVersion = "34.0.0"
     buildFeatures {
         dataBinding = true
@@ -41,6 +44,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
 }
 
 dependencies {
@@ -51,6 +55,10 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.firebase.auth)
     implementation(libs.core.ktx)
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.ui.test.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -61,6 +69,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.2.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation ("com.squareup.picasso:picasso:2.8")
+
 
 
 }
