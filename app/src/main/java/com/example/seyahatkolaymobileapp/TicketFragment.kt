@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.SearchView
+import com.example.busbookingapp.PassengerInfoFragment
 import java.util.Calendar
 
 
@@ -93,8 +94,14 @@ class TicketFragment : Fragment() {
         searchButton.setOnClickListener {
             progressBar.visibility = View.VISIBLE
             startProgressBar()
-            val intent = Intent(context, BusActivity::class.java)
-            startActivity(intent)
+            val fragment = PassengerInfoFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+
+
+
         }
 
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
