@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             } else if (menuItem.itemId == R.id.fragment_user_profile) {
                 replaceFragment(UserProfileFragment())
             } else if (menuItem.itemId == R.id.fragment_aboutus) {
-                replaceFragment(AboutusFragment())
+                replaceFragment(`AboutusFragment`())
             }
             true
         }

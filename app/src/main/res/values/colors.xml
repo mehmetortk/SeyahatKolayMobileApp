@@ -9,6 +9,7 @@
     <color name="gray">#808080</color>
     <color name="dark_gray">#A9A9A9</color>
     <color name="light_gray">#D3D3D3</color>
-
+    <color name="colorSeatAvailable">#4CAF50</color>
+    <color name="colorSeatUnavailable">#F44336</color>
 
 </resources>
