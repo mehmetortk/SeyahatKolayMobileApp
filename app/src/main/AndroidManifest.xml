@@ -37,9 +37,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+      
         <activity
             android:name=".Login"
             android:exported="false" />
+      
         <activity
             android:name="com.example.busapp.trip"
             android:exported="false" />

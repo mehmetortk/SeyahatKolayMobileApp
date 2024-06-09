@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/gold">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtview20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yolcu Bilgileri"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ad Soyad"
+            android:inputType="textPersonName" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Erkek" />
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kadın" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/editTextAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Yaş"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/buttonAddPassenger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yolcu Ekle"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:id="@+id/textViewPassengers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yolcular"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutPassengers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/editTextCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kart Numarası"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editTextExpiration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Son Kullanma Tarihi (MM/YY)"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/editTextCVV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CVV"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/buttonPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Ödeme Yap"
+            android:background="@color/gray"/>
+
+    </LinearLayout>
+</ScrollView>
