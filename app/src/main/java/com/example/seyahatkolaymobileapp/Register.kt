@@ -16,6 +16,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.seyahatkolaymobileapp.R
+
 
 class Register : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null

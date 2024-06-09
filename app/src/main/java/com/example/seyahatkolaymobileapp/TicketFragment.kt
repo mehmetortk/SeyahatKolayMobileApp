@@ -99,9 +99,6 @@ class TicketFragment : Fragment() {
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit()
-
-
-
         }
 
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
